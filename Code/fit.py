@@ -4,6 +4,7 @@ MAI/IDL SS26 - Final assignment.
 MG 6/6/2026
 """
 import torch
+import matplotlib.pyplot as plt
 
 class Trainer:
     def __init__(self, model, criterion, optimizer, device):
@@ -79,3 +80,23 @@ class Trainer:
         
         print("-" * 50)
         print("Training Complete!")
+
+        # Load the best weights before doinng the final evaluation
+        if best_model_weights is not None:
+            self.model.load_state_dict(best_model_weights)
+            print("Loaded best model weights for final evaluation.")
+
+        self.plot_losses(self, train_losses, val_losses, dataset_name)
+
+    def plot_losses(self, train_losses, val_losses, dataset_name):
+        fig, ax = plt.subplots(figsize=(7, 3))
+        ax.plot(train_losses, color='#005564', linewidth=2, label='Train Loss')
+        ax.plot(val_losses, color='#FF6A00', linewidth=2, label='Validation Loss')
+        ax.set_xlabel('Epochs')
+        ax.set_ylabel('Cross Entropy Loss')
+        ax.set_title(f'Training Curve - {dataset_name}', color='#163C69', fontweight='bold')
+        ax.spines['top', 'right'].set_visible(False)
+        ax.legend()
+        plt.tight_layout()
+        plt.savefig(f'{dataset_name}_loss_curve.png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
