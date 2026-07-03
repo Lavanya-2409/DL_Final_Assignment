@@ -75,10 +75,14 @@ class Trainer:
             train_loss, train_acc = self.train_one_epoch(train_loader)
             val_loss, val_acc, val_prec, val_rec, val_f1 = self.evaluate(val_loader)
 
+            train_losses.append(train_loss) #track the training loss for plotting
+            val_losses.append(val_loss) #track the validation loss for plotting
+        
+            #save the best model weights based on validation loss
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
-                patience_counter = 0
-                torch.save(self.model.state_dict(), "best_model.pth")
+                best_model_weights = self.model.state_dict().copy()
+
             else:
                 patience_counter += 1
                 if patience_counter >= patience:
