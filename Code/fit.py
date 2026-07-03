@@ -82,12 +82,6 @@ class Trainer:
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
                 best_model_weights = self.model.state_dict().copy()
-
-            else:
-                patience_counter += 1
-                if patience_counter >= patience:
-                    print(f"Early stopping triggered after {epoch+1} epochs.")
-                    break
             
             print(f"Epoch [{epoch+1:02d}/{epochs:02d}] | "
                   f"Train Loss: {train_loss:.4f} - Train Acc: {train_acc:.2f}% | "
@@ -101,7 +95,7 @@ class Trainer:
             self.model.load_state_dict(best_model_weights)
             print("Loaded best model weights for final evaluation.")
 
-        self.plot_losses(self, train_losses, val_losses, dataset_name)
+        self.plot_losses(train_losses, val_losses, dataset_name)
 
     def plot_losses(self, train_losses, val_losses, dataset_name):
         fig, ax = plt.subplots(figsize=(7, 3))
