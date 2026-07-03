@@ -39,10 +39,10 @@ def main():
             val_split=config.get("VAL_SPLIT", 0.1) # fixed syntax error
         )
 
-        model_class = getattr(models, config["MODEL"])
-        model = model_class(in_channels=channels, num_classes=num_classes).to(device)
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=config["LEARNING_RATE"])
+            model_class = getattr(models, config["MODEL"])
+            model = model_class(in_channels=channels, num_classes=num_classes).to(device)
+            criterion = nn.CrossEntropyLoss()
+            optimizer = optim.Adam(model.parameters(), lr=config["LEARNING_RATE"])
 
     
     #remooved the dublicate model code for model, criterion and optimizer 
