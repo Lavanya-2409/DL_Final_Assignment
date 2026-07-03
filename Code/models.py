@@ -174,9 +174,13 @@ class ResNet18(nn.Module):
             ResBlock(512, 512, activation(inplace=True), stride=1)
         )
         
+        drop_rate = kwargs.get("drop_rate", 0.3)
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.classifier = nn.Linear(512, num_classes)
-
+        self.classifier = nn.sequential(
+            nn.Dropout(p=drop_rate),
+            nn.Linear(512, num_classes)
+        )
+        
     def forward(self, x):
         out = self.activation(self.bn1(self.conv1(x)))
         out = self.stage1(out)
