@@ -33,12 +33,15 @@ class Trainer:
             sum += labels.size(0)
             correct += predicted.eq(labels).sum().item()
             
-        return running_loss / sum, (correct / total) * 100
+        return running_loss / total, (correct / total) * 100
 
     def evaluate(self, dataloader):
         self.model.eval()
         running_loss = 0.0
         correct, total = 0, 0
+
+        all_labels = []
+        all_preds = []
         
         with torch.no_grad():
             for images, labels in dataloader:
@@ -51,7 +54,10 @@ class Trainer:
                 _, predicted = outputs.max(1)
                 total += labels.size(0)
                 correct += predicted.eq(labels).sum().item()
-                
+
+                all_labels.extend(labels.cpu().numpy())
+                all_preds.extend(predicted.cpu().numpy())
+
         return running_loss / total, (correct / total) * 100
 
     def fit(self, train_loader, val_loader, epochs, patience=5):
