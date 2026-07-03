@@ -72,7 +72,7 @@ class AlexNet(nn.Module):
         drop_rate = kwargs.get("drop_rate", 0.5)
         
         self.features = nn.Sequential(
-            nn.Conv2d(in_channels, 48, kernel_size=7, stride=2, padding=3),
+            #nn.Conv2d(in_channels, 48, kernel_size=7, stride=2, padding=3),
             nn.BatchNorm2d(48),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1),
@@ -95,7 +95,7 @@ class AlexNet(nn.Module):
         
         self.classifier = nn.Sequential(
             nn.Dropout(p=drop_rate),
-            nn.Linear(192 * 2 * 2, 1024),   # Fix: 192 channels * 2 * 2 spatial dimensions = 768
+            #nn.Linear(192 * 4 * 4, 1024),   # Fix: 192 channels * 4 * 4 spatial dimensions = 3072
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(1024, 1024),
