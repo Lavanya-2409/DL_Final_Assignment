@@ -47,7 +47,7 @@ def main():
     
             #remooved the dublicate model code for model, criterion and optimizer 
             trainer = Trainer(model, criterion, optimizer, device)
-            trainer.fit(train_loader, val_loader, epochs=config["EPOCHS"])
+            trainer.fit(train_loader, val_loader, epochs=config["EPOCHS"], dataset_name=data_name)
 
             test_loss, test_accuracy = trainer.evaluate(test_loader)
             print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.2f}%")

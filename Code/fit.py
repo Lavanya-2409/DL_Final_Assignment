@@ -64,7 +64,7 @@ class Trainer:
 
         return running_loss / total, (correct / total) * 100, precision * 100, recall * 100, f1_score * 100
 
-    def fit(self, train_loader, val_loader, epochs, patience=5):
+    def fit(self, train_loader, val_loader, epochs, dataset_name="dataset"):
         print("\n Starting Training Routine...")
         print("-" * 50)
 
