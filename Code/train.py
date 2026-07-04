@@ -49,8 +49,13 @@ def main():
             trainer = Trainer(model, criterion, optimizer, device)
             trainer.fit(train_loader, val_loader, epochs=config["EPOCHS"], dataset_name=data_name)
 
-            test_loss, test_accuracy = trainer.evaluate(test_loader)
-            print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.2f}%")
-
+            test_loss, test_accuracy, precision, recall, f1_score = trainer.evaluate(test_loader)
+            print(f"\n{'='*50}")
+            print(f"Model: {model_name} | Dataset: {data_name}")
+            print(f"Test Accuracy: {test_accuracy:.2f}%")
+            print(f"Precision: {precision:.2f}%")
+            print(f"Recall: {recall:.2f}%")
+            print(f"F1-Score: {f1_score:.2f}%")
+            print(f"{'='*50}")
 if __name__ == "__main__":
     main()
