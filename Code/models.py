@@ -95,7 +95,7 @@ class AlexNet(nn.Module):
         
         self.classifier = nn.Sequential(
             nn.Dropout(p=drop_rate),
-            nn.Linear(192 * 4 * 4, 1024),   # Fix: 192 channels * 4 * 4 spatial dimensions = 3072
+            nn.Linear(192 * 2 * 2, 1024),   # Fix: 192 channels * 2 * 2 spatial dimensions = 768
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(1024, 1024),
