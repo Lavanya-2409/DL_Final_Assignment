@@ -111,4 +111,5 @@ class Trainer:
         ax.legend()
         plt.tight_layout()
         plt.savefig(f'{dataset_name}_loss_curve.png', dpi=150, bbox_inches='tight')
+        plt.show()
         plt.close(fig)
